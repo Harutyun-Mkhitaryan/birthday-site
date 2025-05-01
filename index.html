@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthay Nellishok jan!</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <!-- AOS для анимаций -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <!-- Шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Marck Script', cursive;
+      background: linear-gradient(to bottom, #fff9e6, #f8e092);
+      color: #5a3a1a;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 253, 245, 0.9);
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    nav a {
+      color: #5a3a1a;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #e6a700;
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header .profile-picture {
+      display: block;
+      margin: 0 auto 20px;
+      width: 180px;
+      height: 180px;
+      border: 5px solid #f1c40f;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      object-fit: cover;
+    }
+
+    header .profile-picture:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: fadeIn 2s ease-in;
+      color: #8a6d3b;
+    }
+
+    header p {
+      font-size: 1.8rem;
+      color: #8a6d3b;
+      margin-top: 0.5rem;
+    }
+
+    section {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    /* Вариант 2: Фиксированное соотношение сторон 16:9 (как YouTube) */
+    .video-block {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; 
+      height: 0;
+      overflow: hidden;
+    }
+    .video-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+
+    .gallery-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .gallery-container img {
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 2px solid #f1c40f;
+      background-color: #fff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-container img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .quote {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      font-style: italic;
+      color: #7d6608;
+    }
+
+    /* Стили для музыкального проигрывателя */
+    .music-player {
+      margin: 3rem auto;
+      max-width: 500px;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(139, 110, 59, 0.15);
+      text-align: center;
+      transition: all 0.4s ease;
+      border: 2px solid #f1c40f;
+    }
+
+    .music-player:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(139, 110, 59, 0.25);
+    }
+
+    .music-player h3 {
+      color: #8a6d3b;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .music-player h3::before,
+    .music-player h3::after {
+      content: "♫";
+      color: #e6a700;
+      margin: 0 10px;
+      font-size: 1.4rem;
+    }
+
+    .music-player audio {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    /* Кастомные стили для элементов управления аудио */
+    .music-player audio::-webkit-media-controls-panel {
+      background: linear-gradient(to right, #f8e092, #f3d264);
+      border-radius: 15px;
+      padding: 10px;
+    }
+
+    .music-player audio::-webkit-media-controls-play-button {
+      background-color: #e6a700;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .music-player audio::-webkit-media-controls-play-button:hover {
+      background-color: #cc9200;
+      transform: scale(1.1);
+    }
+
+    .music-player audio::-webkit-media-controls-current-time-display,
+    .music-player audio::-webkit-media-controls-time-remaining-display {
+      color: #5a3a1a;
+      font-family: 'Marck Script', cursive;
+      font-size: 1rem;
+    }
+
+    .music-player audio::-webkit-media-controls-timeline {
+      background-color: #e6a700;
+      border-radius: 10px;
+      height: 6px;
+      margin: 0 5px;
+    }
+
+    .music-player audio::-webkit-media-controls-volume-slider {
+      background-color: #e6a700;
+      border-radius: 10px;
+      height: 6px;
+    }
+
+    /* Анимация пульсации */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .music-player audio::-webkit-media-controls-play-button {
+      animation: pulse 2s infinite;
+    }
+
+    .scroll-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      background-color: #e6a700;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      box-shadow: 0 4px 8px rgba(230, 167, 0, 0.3);
+    }
+
+    .scroll-btn:hover {
+      background-color: #cc9200;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Анимация подсолнухов */
+    .sunflower {
+      position: fixed;
+      bottom: -100px;
+      width: 50px;
+      height: 50px;
+      animation: floatUp 10s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+      transform-origin: center;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.8;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(calc(-100vh - 100px)) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Фейерверк */
+    .firework {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 900px) {
+      header {
+        padding: 5rem 1rem 3rem;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      header p {
+        font-size: 1.4rem;
+      }
+      header .profile-picture {
+        width: 150px;
+        height: 150px;
+      }
+      nav {
+        gap: 1rem;
+        padding: 0.5rem;
+        flex-wrap: wrap;
+      }
+      nav a {
+        font-size: 1rem;
+      }
+      .gallery-container img {
+        max-width: 180px;
+      }
+      .music-player {
+        max-width: 90%;
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      header .profile-picture {
+        width: 120px;
+        height: 120px;
+        border-width: 3px;
+      }
+      .gallery-container {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 10px;
+      }
+      .gallery-container img {
+        max-width: 160px;
+        flex-shrink: 0;
+      }
+      .music-player h3 {
+        font-size: 1.5rem;
+      }
+      .music-player h3::before,
+      .music-player h3::after {
+        margin: 0 5px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#video">Video</a>
+    <a href="#gallery">Photos</a>
+    <a href="#quote">Quote</a>
+  </nav>
+
+  <header>
+    <img class="profile-picture" src="image-1.jpg" alt="Фото именинника" data-aos="zoom-in">
+    
+    <h1 data-aos="fade-up">Happy Birthday Nellishok jan!</h1>
+    <p data-aos="fade-up" data-aos-delay="400">Sunflower Sisters</p>
+    <!-- <button class="scroll-btn" onclick="document.getElementById('video').scrollIntoView({ behavior: 'smooth' });">View page</button> -->
+  </header>
+
+  <script>
+    const preloadImage = new Image();
+    preloadImage.src = 'sunflower.png';
+
+    function createSunflower() {
+      const sunflower = document.createElement('img');
+      sunflower.className = 'sunflower';
+      sunflower.src = 'sunflower.png';
+      sunflower.style.left = Math.random() * 100 + 'vw';
+      sunflower.style.animationDuration = (Math.random() * 5 + 8) + 's';
+      sunflower.style.width = `${Math.random() * 30 + 40}px`;
+      document.body.appendChild(sunflower);
+      
+      setTimeout(() => {
+        sunflower.remove();
+      }, parseFloat(sunflower.style.animationDuration) * 1000);
+    }
+
+    let sunflowerInterval = setInterval(createSunflower, 800);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) clearInterval(sunflowerInterval);
+      else sunflowerInterval = setInterval(createSunflower, 800);
+    });
+  </script>
+
+  <section class="video-block" id="video" data-aos="zoom-in">
+    <h2>Video</h2>
+    <div class="video-container">
+      <video controls>
+        <source src="video-sunflower.mp4" type="video/mp4" />
+        Ваш браузер не поддерживает видео.
+      </video>
+    </div>
+  </section>
+
+  <canvas id="fireworkCanvas" class="firework"></canvas>
+  <script>
+    const canvas = document.getElementById('fireworkCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    const particles = [];
+
+    function createFirework() {
+      const x = random(100, canvas.width - 100);
+      const y = random(100, canvas.height / 2);
+      const count = 30;
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x,
+          y,
+          radius: random(2, 4),
+          color: `hsl(${random(40, 60)}, 100%, ${random(50, 70)}%)`,
+          angle: Math.PI * 2 * i / count,
+          speed: random(2, 6),
+          alpha: 1
+        });
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach((p, index) => {
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.alpha -= 0.02;
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+        if (p.alpha <= 0) particles.splice(index, 1);
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(createFirework, 2500);
+    animate();
+  </script>
+
+  <section class="gallery" id="gallery" data-aos="fade-up">
+    <h2>Moments</h2>
+    <div class="gallery-container">
+      <picture>
+        <source srcset="image-2.jpg" type="image/jpeg">
+        <img src="image-2.jpg" alt="Фото 2" loading="lazy">
+      </picture>
+      <picture>
+        <source srcset="image-3.jpg" type="image/jpeg">
+        <img src="image-3.jpg" alt="Фото 3" loading="lazy">
+      </picture>
+      <picture>
+        <source srcset="image-4.jpg" type="image/jpeg">
+        <img src="image-4.jpg" alt="Фото 4" loading="lazy">
+      </picture>
+    </div>
+  </section>
+
+  <section id="quote" data-aos="fade-up">
+    <p class="quote">"Misht Jpitt Anpakas lini Nellishok jan."</p>
+    <div class="music-player">
+      <h3>Prosto (hangist erg) :) </h3>
+      <audio controls>
+        <source src="sunflower-music.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+      </audio>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+</body>
+</html>
